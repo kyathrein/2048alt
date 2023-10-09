@@ -90,6 +90,8 @@ namespace _2048alt
             {
                 //矢印キーが押されたことを表示する
                 case Keys.Up:
+                    //上ボタンの場合
+                    //マスのリストをY座標が小さい順に並べる
                     pieces = pieces.OrderBy(a => a.label.Location.Y).ToList();
                     foreach (Piece piece in pieces)
                     {
@@ -99,15 +101,14 @@ namespace _2048alt
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            RemovePiece(piece, removePieces);
                         }
                     }
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Down:
+                    //下ボタンの場合
+                    //マスのリストをY座標が大さい順に並べる
                     pieces = pieces.OrderBy(a => -a.label.Location.Y).ToList();
                     foreach (Piece piece in pieces)
                     {
@@ -117,15 +118,14 @@ namespace _2048alt
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            RemovePiece(piece, removePieces);
                         }
                     }
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Left:
+                    //左ボタンの場合
+                    //マスのリストをX座標が小さい順に並べる
                     pieces = pieces.OrderBy(a => a.label.Location.X).ToList();
                     foreach (Piece piece in pieces)
                     {
@@ -135,15 +135,14 @@ namespace _2048alt
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            RemovePiece(piece, removePieces);
                         }
                     }
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Right:
+                    //右ボタンの場合
+                    //マスのリストをX座標が大きい順に並べる
                     pieces = pieces.OrderBy(a => -a.label.Location.X).ToList();
                     foreach (Piece piece in pieces)
                     {
@@ -153,19 +152,7 @@ namespace _2048alt
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
-
-                            if (piece.coverPiece.number == 1)
-                            {
-                                removePieces.Add(piece.coverPiece);
-                                piece.coverPiece.label.Hide();
-                                piece.coverPiece.label.Dispose();
-                                Controls.Remove(piece.coverPiece.label);
-                            }
-
+                            RemovePiece(piece, removePieces);
                         }
                     }
                     AddPieces(pieceLocations);
@@ -260,6 +247,27 @@ namespace _2048alt
             else
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// マスの消去
+        /// </summary>
+        /// <param name=""></param>
+        public void RemovePiece(Piece piece, List<Piece> removePieces)
+        {
+            removePieces.Add(piece);
+            piece.label.Hide();
+            piece.label.Dispose();
+            Controls.Remove(piece.label);
+
+            //被り先のマスの数字が1の場合は、被り先のマスも消去
+            if (piece.coverPiece.number == 1)
+            {
+                removePieces.Add(piece.coverPiece);
+                piece.coverPiece.label.Hide();
+                piece.coverPiece.label.Dispose();
+                Controls.Remove(piece.coverPiece.label);
             }
         }
 
