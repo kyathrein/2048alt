@@ -213,31 +213,6 @@ namespace _2048alt
         /// <summary>
         /// リセットボタン押下
         /// </summary>
-        private void Reset_Click(object sender, EventArgs e)
-        {
-            //既存のマスの消去
-            foreach (Piece piece in pieces)
-            {
-                piece.label.Hide();
-                piece.label.Dispose();
-                Controls.Remove(piece.label);
-            }
-            pieces = new List<Piece>();
-
-            //最初のマスの追加
-            Label firstPieceLabel = new Label();
-            Controls.Add(firstPieceLabel);
-            Piece firstPiece = new Piece(firstPieceLabel, (58, 176), 1);
-            firstPiece.label.Show();
-            pieces.Add(firstPiece);
-
-            //通番のインクリメント
-            id++;
-
-            //ハイスコアの表示
-            HighScore.Text = "HighScore： 2";
-        }
-
         private void label2_Click(object sender, EventArgs e)
         {
             //既存のマスの消去
