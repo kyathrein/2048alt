@@ -12,7 +12,7 @@ namespace _2048alt
 
         // ラベル
         public Label label;
-        // 数字
+        // 数字(÷2マスのときは-1とする)
         public int number;
 
         // 他のマスと被っているか否か
@@ -128,7 +128,7 @@ namespace _2048alt
             //数字が同じ他のマスと被っているか否かのチェック
             Piece piece = pieces.Find(a =>
             (a.label.Location.X == this.label.Location.X) && (a.label.Location.Y == this.label.Location.Y)
-             && (a.number == this.number) && (a.id != this.id));
+             && ((a.number == this.number) || (a.number == -1) || (this.number == -1)) && (a.id != this.id));
             if (piece != null)
             {
                 isCover = true;
@@ -137,9 +137,11 @@ namespace _2048alt
             }
 
             //数字が異なる他のマスとぶつかるか否かのチェック
+            //÷2マスの場合はぶつかる
             Piece piece2 = pieces.Find(a =>
             (a.label.Location.X == afterLocation.x) && (a.label.Location.Y == afterLocation.y)
-             && (a.number != this.number) && (a.id != this.id));
+             && ((a.number != this.number) && (a.number != -1) && (this.number != -1))
+             && (a.id != this.id));
             if (piece2 != null)
             {
                 return false;
@@ -164,7 +166,15 @@ namespace _2048alt
             // 数字
             this.number = afterNumber;
             // ラベルの数字
-            this.label.Text = number.ToString();
+            if (number == -1)
+            {
+                //÷2マスの場合、"÷2"と表示
+                this.label.Text = "÷2";
+            }
+            else
+            {
+                this.label.Text = number.ToString();
+            }
         }
     }
 }

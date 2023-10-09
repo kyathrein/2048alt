@@ -36,5 +36,15 @@ namespace _2048alt
         {
             Close();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //ノーマル画面の表示
+            Division division = new Division();
+            division.Show(this);
+
+            //メニュー画面の非表示
+            Hide();
+        }
     }
 }
