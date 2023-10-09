@@ -32,6 +32,9 @@ namespace _2048alt
             InitializeComponent();
         }
 
+        /// <summary>
+        /// リセットボタン押下
+        /// </summary>
         private void label2_Click(object sender, EventArgs e)
         {
             //既存のマスの消去
@@ -57,6 +60,9 @@ namespace _2048alt
             HighScore.Text = "HighScore： 2";
         }
 
+        /// <summary>
+        /// 画面表示時処理
+        /// </summary>
         private void Division_Load(object sender, EventArgs e)
         {
             //最初のマスの追加
@@ -73,11 +79,17 @@ namespace _2048alt
             HighScore.Text = "HighScore： 2";
         }
 
+        /// <summary>
+        /// 画面非表示時処理
+        /// </summary>
         private void Division_FormClosed(object sender, FormClosedEventArgs e)
         {//メニュー画面の表示
             Owner.Show();
         }
 
+        /// <summary>
+        /// ボタン押下時処理
+        /// </summary>
         private void Division_KeyDown(object sender, KeyEventArgs e)
         {
             //移動後のマスのリスト
@@ -98,12 +110,15 @@ namespace _2048alt
                         piece.MoveUp(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
+                            //覆われているマスの消去
                             RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Down:
@@ -115,12 +130,15 @@ namespace _2048alt
                         piece.MoveDown(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
+                            //覆われているマスの消去
                             RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Left:
@@ -132,12 +150,15 @@ namespace _2048alt
                         piece.MoveLeft(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
+                            //覆われているマスの消去
                             RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Right:
@@ -149,12 +170,15 @@ namespace _2048alt
                         piece.MoveRight(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
+                            //覆われているマスの消去
                             RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
             }
@@ -199,7 +223,7 @@ namespace _2048alt
                 }
                 else
                 {
-                    //マスの追加
+                    //通常マスの追加
                     Label pieceLabel = new Label();
                     Controls.Add(pieceLabel);
                     Piece piece = new Piece(pieceLabel, (spaces[randIndex].Item1, spaces[randIndex].Item2), id);
@@ -232,11 +256,13 @@ namespace _2048alt
                     }
                     else if (piece.number == -1)
                     {
+                        //自身のマスが÷2マスだった場合、被り先のマスの数字を取得し、数字を半減
                         int afterNumber = coverPiece.number / 2;
                         coverPiece.UpdateNumber(afterNumber);
                     }
                     else
                     {
+                        //数字を2倍にする
                         int afterNumber = coverPiece.number * 2;
                         coverPiece.UpdateNumber(afterNumber);
                     }
@@ -253,7 +279,8 @@ namespace _2048alt
         /// <summary>
         /// マスの消去
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="piece">マス</param>
+        /// <param name="removePieces">消去するマスのリスト</param>
         public void RemovePiece(Piece piece, List<Piece> removePieces)
         {
             removePieces.Add(piece);

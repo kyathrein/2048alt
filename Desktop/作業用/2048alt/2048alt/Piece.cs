@@ -122,7 +122,8 @@ namespace _2048alt
         /// <summary>
         /// 移動できるかのチェック
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="pieces">マス一覧</param>
+        /// <param name="afterLocation">移動後の座標</param>
         public bool CanMove(List<Piece> pieces, (int x, int y) afterLocation)
         {
             //数字が同じ他のマスと被っているか否かのチェック

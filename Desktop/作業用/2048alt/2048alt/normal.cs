@@ -32,6 +32,9 @@ namespace _2048alt
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 画面表示時処理
+        /// </summary>
         private void Normal_Load(object sender, EventArgs e)
         {
             //最初のマスの追加
@@ -48,12 +51,18 @@ namespace _2048alt
             HighScore.Text = "HighScore： 2";
         }
 
+        /// <summary>
+        /// 画面非表示時処理
+        /// </summary>
         private void Normal_FormClosed(object sender, FormClosedEventArgs e)
         {
             //メニュー画面の表示
             Owner.Show();
         }
 
+        /// <summary>
+        /// ボタン押下時処理
+        /// </summary>
         private void Normal_KeyDown(object sender, KeyEventArgs e)
         {
             //移動後のマスのリスト
@@ -72,15 +81,15 @@ namespace _2048alt
                         piece.MoveUp(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            //覆われているマスの消去
+                            RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;                
                 case Keys.Down:
@@ -90,15 +99,15 @@ namespace _2048alt
                         piece.MoveDown(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            //覆われているマスの消去
+                            RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Left:
@@ -108,15 +117,15 @@ namespace _2048alt
                         piece.MoveLeft(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            //覆われているマスの消去
+                            RemovePiece(piece, removePieces);
                         }
                     }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
                 case Keys.Right:
@@ -126,15 +135,15 @@ namespace _2048alt
                         piece.MoveRight(pieces);
                         pieceLocations.Add((piece.label.Location.X, piece.label.Location.Y));
 
+                        //マスが覆われているかチェック
                         bool isCover = CheckCover(piece);
                         if (isCover)
                         {
-                            removePieces.Add(piece);
-                            piece.label.Hide();
-                            piece.label.Dispose();
-                            Controls.Remove(piece.label);
+                            //覆われているマスの消去
+                            RemovePiece(piece, removePieces);
                         }
-                    }                    
+                    }
+                    //新規マスの追加
                     AddPieces(pieceLocations);
                     break;
             }
@@ -196,6 +205,19 @@ namespace _2048alt
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// マスの消去
+        /// </summary>
+        /// <param name="piece">マス</param>
+        /// <param name="removePieces">消去するマスのリスト</param>
+        public void RemovePiece(Piece piece, List<Piece> removePieces)
+        {
+            removePieces.Add(piece);
+            piece.label.Hide();
+            piece.label.Dispose();
+            Controls.Remove(piece.label);
         }
 
         /// <summary>
