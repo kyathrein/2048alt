@@ -138,7 +138,7 @@ namespace _2048alt
             }
 
             //数字が異なる他のマスとぶつかるか否かのチェック
-            //÷2マスの場合はぶつかる
+            //÷2マスの場合はぶつからない
             Piece piece2 = pieces.Find(a =>
             (a.label.Location.X == afterLocation.x) && (a.label.Location.Y == afterLocation.y)
              && ((a.number != this.number) && (a.number != -1) && (this.number != -1))
