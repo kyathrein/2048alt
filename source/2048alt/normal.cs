@@ -48,7 +48,7 @@ namespace _2048alt
             id++;
 
             //ハイスコアの表示
-            HighScore.Text = "HighScore： 2";
+            HighScore.Text = "Score： 2";
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace _2048alt
             pieces = pieces.OrderBy(a => -a.number).ToList();
 
             //一番大きい数字を表示
-            HighScore.Text = "HighScore： " + pieces[0].number.ToString();
+            HighScore.Text = "Score： " + pieces[0].number.ToString();
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace _2048alt
             id++;
 
             //ハイスコアの表示
-            HighScore.Text = "HighScore： 2";
+            HighScore.Text = "Score： 2";
         }
     }
 }

@@ -57,7 +57,7 @@ namespace _2048alt
             id++;
 
             //ハイスコアの表示
-            HighScore.Text = "HighScore： 2";
+            HighScore.Text = "Score： 2";
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace _2048alt
             id++;
 
             //ハイスコアの表示
-            HighScore.Text = "HighScore： 2";
+            HighScore.Text = "Score： 2";
         }
 
         /// <summary>
@@ -307,7 +307,16 @@ namespace _2048alt
             pieces = pieces.OrderBy(a => -a.number).ToList();
 
             //一番大きい数字を表示
-            HighScore.Text = "HighScore： " + pieces[0].number.ToString();
+            if (pieces[0].number > 0)
+            {
+                HighScore.Text = "Score： " + pieces[0].number.ToString();
+            }
+            else
+            {
+                //÷2マスしかない場合は、スコアを0とする。
+                HighScore.Text = "Score： 0";
+            }
+            
         }
 
     }
