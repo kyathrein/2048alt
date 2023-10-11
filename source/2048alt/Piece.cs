@@ -148,6 +148,17 @@ namespace _2048alt
                 return false;
             }
 
+            //÷2マス同士でぶつかるかチェック
+            Piece piece3 = pieces.Find(a =>
+            (a.label.Location.X == afterLocation.x) && (a.label.Location.Y == afterLocation.y)
+             && ((a.number == -1) && (this.number == -1))
+             && (a.id != this.id));
+            if (piece3 != null)
+            {
+                //÷2マス同士の場合はぶつかるものとする
+                return false;
+            }
+
             //端か否かのチェック
             if (afterLocation.x < 50 || afterLocation.x > 338
                 || afterLocation.y < 170 || afterLocation.y > 458)
